@@ -7,7 +7,7 @@ interface Props {
   home?: boolean;
 }
 
-const name = "Your Name";
+const name = "Matheus Betim";
 export const siteTitle = "Next.js Sample Website";
 
 const Layout: React.FC<Props> = ({ home, children }) => {
