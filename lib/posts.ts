@@ -4,6 +4,11 @@ import matter from "gray-matter";
 import remark from "remark";
 import html from "remark-html";
 
+interface MatterDataResult {
+  title: string;
+  date: string;
+}
+
 const postsDirectory = path.join(process.cwd(), "posts");
 
 export function getSortedPostsData() {
@@ -21,7 +26,7 @@ export function getSortedPostsData() {
     const matterResult = matter(fileContents);
 
     // Combine the data with id
-    return { id, ...matterResult.data };
+    return { id, ...(matterResult.data as MatterDataResult) };
   });
 
   // Sort posts by date
@@ -43,5 +48,5 @@ export async function getPostData(id) {
   const processedContent = await remark().use(html).process(matterResult.content);
   const contentHtml = processedContent.toString();
 
-  return { id, contentHtml, ...matterResult.data };
+  return { id, contentHtml, ...(matterResult.data as MatterDataResult) };
 }
